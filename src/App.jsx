@@ -7,11 +7,11 @@ function App() {
   const noButtonRef = useRef(null);
   
   const messages = [
-    "no",
+    "No",
     "¿Segura? 🥺",
     "¡Piénsalo bien! 🌸",
     "¡Ultima oportunidad! 😠",
-    "¡Esta bien! 🚮",
+    "¡Esta bien! 🚮"
   ];
 
   const handleNoClick = () => {
@@ -19,31 +19,50 @@ function App() {
     setClickCount(newCount);
 
     if (newCount === 3) {
-      // Animación de patada con delay
       setTimeout(() => {
         const button = noButtonRef.current;
         if (button) {
           button.style.transform = 'translateX(100vw) rotate(720deg)';
           button.style.opacity = '0';
         }
-      }, 2000); // Espera a que Snoopy complete su animación
+      }, 2000);
+    }
+
+    if (newCount === messages.length - 1) {
+      Swal.fire({
+        title: '¡Snoopy se llevó el "No"!',
+        html: `<div class="snoopy-alert-content">
+                <img src="https://media.tenor.com/1CKscM4RI9gAAAAi/snoopy.gif" 
+                     alt="Snoopy feliz" 
+                     class="snoopy-alert-img">
+                <p class="snoopy-alert-text">¡A la basura con el "No"! 🗑️</p>
+              </div>`,
+        confirmButtonText: '¡Quiero decir que Sí! ❤️',
+        background: '#fff0f6',
+        confirmButtonColor: '#ff69b4',
+        customClass: {
+          popup: 'responsive-swal',
+          title: 'swal-title'
+        }
+      });
     }
   };
 
   const handleSiClick = () => {
     Swal.fire({
       title: '¡Snoopy celebra contigo!',
-      html: `<div style="position: relative;">
+      html: `<div class="celebration-content">
+              <p class="celebration-text">¡Te amo! 💖</p>
               <img src="https://media.tenor.com/Jloq3y4mk8kAAAAj/amor-love.gif" 
-                   style="width: 250px; border-radius: 15px; border: 3px solid #ff69b4">
-              <div style="position: absolute; top: 10px; width: 100%; text-align: center; font-size: 1.8em; 
-                          color: #c23b3b; text-shadow: 2px 2px 4px white">¡Te amo! 🎉</div>
+                   alt="Celebración" 
+                   class="celebration-img">
             </div>`,
       confirmButtonText: '❤️ ¡A celebrar! ❤️',
       background: '#fff9fb',
       confirmButtonColor: '#ff69b4',
-      showClass: {
-        popup: 'swal-show-animation'
+      customClass: {
+        popup: 'responsive-swal',
+        title: 'swal-title'
       }
     });
   };
@@ -58,7 +77,7 @@ function App() {
         </button>
         <button
           ref={noButtonRef}
-          className={`btn fase-${Math.min(clickCount, 5)}`}
+          className={`btn fase-${Math.min(clickCount, 4)}`}
           onClick={handleNoClick}
           style={{ transition: 'all 1.5s cubic-bezier(0.4, 0, 0.2, 1)' }}
         >
